@@ -11,10 +11,7 @@ export interface TaskItem {
   providedIn: 'root'
 })
 export class TaskService {
-  private tasks: TaskItem[] = [
-  ];
-
-  private tasksSubject = new BehaviorSubject<TaskItem[]>(this.tasks);
+  private tasksSubject = new BehaviorSubject<TaskItem[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
   addTask(title: string): void {
@@ -23,15 +20,13 @@ export class TaskService {
       title,
       completed: false 
     };
-    this.tasks.push(newTask);
-    this.tasksSubject.next(this.tasks);
+    this.tasksSubject.next([...this.tasksSubject.value, newTask]);
   }
 
   deleteTask(id: number): void {
     const updatedTasks = this.tasksSubject.value.filter(
       task => task.id !== id
     );
-
     this.tasksSubject.next(updatedTasks);
   }
 
@@ -43,5 +38,4 @@ export class TaskService {
     );
     this.tasksSubject.next(updatedTasks);
   }
-
 }

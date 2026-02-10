@@ -7,6 +7,7 @@ import {
 import { AsyncPipe } from '@angular/common';
 
 import { TaskService, TaskItem } from '../../core/services/task';
+import { Members } from '../../core/services/members';
 import { TaskHighlight } from '../task-highlight/task-highlight';
 import { TaskEdit } from '../task-edit/task-edit';
 
@@ -19,16 +20,20 @@ import { TaskEdit } from '../task-edit/task-edit';
 })
 export class TasksPage {
   private taskService = inject(TaskService);
+  private memberService = inject(Members);
+  
   tasks$ = this.taskService.tasks$;
+  members$ = this.memberService.members$;
 
   @ViewChild('highlightContainer', { read: ViewContainerRef })
   highlightContainer!: ViewContainerRef;
   @ViewChild('editContainer', { read: ViewContainerRef })
   editContainer!: ViewContainerRef;
 
-  addTask(title: string) {
+  addTask(title: string, memberId: string) {
     if (title.trim()) {
-      this.taskService.addTask(title);
+      const id = memberId ? parseInt(memberId, 10) : undefined;
+      this.taskService.addTask(title, id);
     }
   }
 

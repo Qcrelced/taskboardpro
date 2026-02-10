@@ -1,1 +1,18 @@
-<p>members-page works!</p>
+<h2>Membres</h2>
+
+<form #membersForm="ngForm" (ngSubmit)="addMember(membersForm.value); membersForm.reset()">
+  <input name="firstName" placeholder="Prénom" ngModel required />
+  <input name="lastName" placeholder="Nom" ngModel required />
+  <input name="email" type="email" placeholder="Email" ngModel required />
+  
+  <button [disabled]="membersForm.invalid">Ajouter</button>
+</form>
+
+<hr />
+
+<ul>
+  <li *ngFor="let member of members$ | async">
+    {{ member.firstName }} {{ member.lastName }} — {{ member.email }}
+    <button (click)="deleteMember(member.id)">supprimer</button>
+  </li>
+</ul>

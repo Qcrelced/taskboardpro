@@ -4,20 +4,14 @@
   <ul>
     @for (t of tasks; track t.id) {
       <li [style.text-decoration]="t.completed ? 'line-through' : 'none'">
-        {{ t.title }}
+        {{ t.title }} 
+        <small>(Membre: {{ t.owner?.firstName }} {{ t.owner?.lastName }})</small>
 
-        <button type="button" (click)="highlight(t)">
-          Mettre en avant
-        </button>
-
+        <button type="button" (click)="highlight(t)">Mettre en avant</button>
         <button type="button" (click)="toggleTask(t.id)">
           {{ t.completed ? 'Annuler' : 'Terminer' }}
         </button>
-
-        <button type="button" (click)="editTask(t)">
-          Éditer
-        </button>
-
+        <button type="button" (click)="editTask(t)">Éditer</button>
         <button type="button" (click)="deleteTask(t.id); $event.stopPropagation()">
           Supprimer
         </button>
@@ -34,11 +28,16 @@
 
 <input #taskInput placeholder="Nouvelle tâche">
 
-<button (click)="addTask(taskInput.value); taskInput.value = ''">
+<select #memberSelect>
+  <option value="">-- Attribuer à --</option>
+  @for (m of members$ | async; track m.id) {
+    <option [value]="m.id">{{ m.firstName }} {{ m.lastName }}</option>
+  }
+</select>
+
+<button (click)="addTask(taskInput.value, memberSelect.value); taskInput.value = ''; memberSelect.value = ''">
   Ajouter une tâche
 </button>
 
-<!-- Zone pour composants dynamiques (highlight ou edit) -->
 <div #highlightContainer></div>
 <div #editContainer></div>
-

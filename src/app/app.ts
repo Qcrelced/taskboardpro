@@ -17,6 +17,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
          [routerLinkActiveOptions]="{ exact: true }">
         Accueil
       </a> |
+      <a routerLink="/tasks" routerLinkActive="active">
+        Mes tâches
+      </a> |
+      <a routerLink="/members" routerLinkActive="active">
+        Mes membres
+      </a> |
       <a routerLink="/about" routerLinkActive="active">
         À propos
       </a>

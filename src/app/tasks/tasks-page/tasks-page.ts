@@ -22,7 +22,9 @@ export class TasksPage {
   tasks$ = this.taskService.tasks$;
 
   @ViewChild('highlightContainer', { read: ViewContainerRef })
-  container!: ViewContainerRef;
+  highlightContainer!: ViewContainerRef;
+  @ViewChild('editContainer', { read: ViewContainerRef })
+  editContainer!: ViewContainerRef;
 
   addTask(title: string) {
     if (title.trim()) {
@@ -39,18 +41,17 @@ export class TasksPage {
   }
 
   highlight(task: TaskItem) {
-    if (!this.container) return;
-    this.container.clear();
-    const ref = this.container.createComponent(TaskHighlight);
+    if (!this.highlightContainer) return;
+    this.highlightContainer.clear();
+    const ref = this.highlightContainer.createComponent(TaskHighlight);
     ref.instance.title = task.title;
   }
 
-editTask(task: TaskItem) {
-  if (!this.container) return;
-
-  this.container.clear(); // efface tout contenu précédent
-  const ref = this.container.createComponent(TaskEdit);
-  ref.instance.task = task;
-  ref.instance.container = this.container; // permet au composant de se fermer
-}
+  editTask(task: TaskItem) {
+    if (!this.editContainer) return;
+    this.editContainer.clear(); // efface tout contenu précédent
+    const ref = this.editContainer.createComponent(TaskEdit);
+    ref.instance.task = task;
+    ref.instance.container = this.editContainer; // permet au composant de se fermer
+  }
 }

@@ -7,8 +7,8 @@ import { ViewContainerRef } from '@angular/core';
   selector: 'app-task-edit',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './task-edit.html', // ✅ template externe
-  styleUrls: ['./task-edit.css'], // optionnel : séparer le CSS
+  templateUrl: './task-edit.html',
+  styleUrls: ['./task-edit.css'], 
 })
 export class TaskEdit {
   @Input() task!: TaskItem;
@@ -18,7 +18,7 @@ export class TaskEdit {
   title!: string;
 
   ngOnInit() {
-    this.title = this.task.title; // copie locale
+    this.title = this.task.title;
   }
 
   save() {

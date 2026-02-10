@@ -1,22 +1,4 @@
-<h2>Liste des tâches</h2>
-@if (tasks$ | async; as tasks) {
-<ul>
-    @for (t of tasks; track t.id) {
-    <li>
-        {{ t.title }}
-        <button type="button" (click)="highlight(t)">
-        Mettre en avant
-        </button>
-    </li>
-    }
-</ul>
-} @else {
-<p>Chargement des tâches...</p>
-}
-
-<hr />
-
-<h3>Actions</h3>
-<button (click)="addTask('Nouvelle tâche')">Ajouter une tâche</button>
-
-<div #highlightContainer></div>
+<div>
+    <h3>Tâche mise en avant</h3>
+    <p>{{ title }}</p>
+</div> 
